@@ -1,3 +1,4 @@
 vendors
 .venv
 __pycache__
+dist
