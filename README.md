@@ -5,9 +5,16 @@ is organized as multiple Playnite extensions:
 
 - **`PlayniteRetroArchSteamKit`** (below): auto-configures RetroArch (Steam) emulator
   profiles and fetches missing cores on launch. Self-contained, no RomM involved.
-- **Save-sync extension** (not developed yet): will sync saves/states with RomM on game
-  start/exit, depending on a third-party RomM client extension for credentials (API token
-  or user:pwd) rather than handling auth itself.
+- **`PlayniteRommSaveSyncKit`** (scaffold only, not implemented): will sync saves/states
+  with RomM on game start/exit. Depends on the third-party [RomM Library
+  Importer](https://github.com/rommapp/playnite-plugin) extension for RomM
+  credentials (API token or user:pwd) instead of asking for them again - see the TODO
+  comments in that folder (`main.psm1`, `Scripts/Get-RommCredentials.ps1`,
+  `Scripts/pull-sync-save.ps1`, `Scripts/push-sync-save.ps1`) for the confirmed
+  integration point (its settings file under `ExtensionsData\<its guid>\config.json`)
+  and the open questions (RomM API endpoints, save/state file matching - inspired by
+  [romm-retroarch-sync](https://github.com/Covin90/romm-retroarch-sync), a standalone
+  app doing the same sync outside Playnite).
 
 ## Development
 

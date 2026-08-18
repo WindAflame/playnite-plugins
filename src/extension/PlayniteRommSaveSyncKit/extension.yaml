@@ -1,0 +1,6 @@
+Id: PlayniteRommSaveSyncKit
+Name: RetroArch (Steam) - RomM Save Sync
+Author: WindAflame
+Version: 0.1.0
+Module: main.psm1
+Type: Script
