@@ -9,47 +9,56 @@ Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server. A
 
 ## Dependencies
 
-- RetroArch profile : https://github.com/JosefNemec/Playnite/blob/master/source/Playnite/Emulation/Emulators/RetroArch/emulator.yaml
 - Save-sync : https://github.com/Covin90/romm-retroarch-sync
 
-## RetroArch (Steam) Playnite profile
+## RetroArch (Steam) emulator profiles
 
-`src/convert-retroarch-to-steam-compatiblity.py` fetches Playnite's official RetroArch
-emulator definition and rewrites each profile to launch through the Steam client
-(`steam.exe -applaunch 1118310 ...`) instead of `retroarch.exe` directly, so Steam Input,
-the overlay, and playtime tracking keep working — this matters on a handheld like the
-ROG Ally where a direct exe launch bypasses all of that. Core/info folder paths don't
-change: the Steam build's layout is identical to standalone, it just lacks a built-in
-core updater (see `src/extension/PlayniteRetroarchRommKit/Scripts/fetch-core.ps1`).
+RetroArch's official Playnite definition has ~100 profiles (one per libretro core), each
+launching `retroarch.exe` directly. To keep Steam Input, the overlay, and playtime
+tracking working — this matters on a handheld like the ROG Ally, where a direct exe
+launch bypasses all of that — games need to launch through
+`steam.exe -applaunch 1118310 ...` instead.
 
-Run it with:
+`src/extension/PlayniteRetroarchRommKit/Scripts/sync-emulator-profiles.ps1` (run from the
+extension's main menu action, see below) generates these as **Custom** emulator profiles,
+which set `Executable`/`Arguments` directly:
 
-```
-uv run src/convert-retroarch-to-steam-compatiblity.py
-```
+- Reads Playnite's own bundled `retroarch` definition via `$PlayniteApi.Emulation.GetEmulator("retroarch")`.
+- Resolves `steam.exe`'s path from the registry (`HKCU:\Software\Valve\Steam`) and
+  RetroArch's actual install folder by parsing `steamapps\libraryfolders.vdf` — no manual
+  path entry.
+- Sets `TrackingMode = Directory` (watches for any process running from RetroArch's
+  folder) on every generated profile, so Playnite correctly detects both game start and
+  RetroArch closing.
 
-This writes `dist/RetroArchSteam/emulator.yaml`. Playnite loads emulator definitions by
-scanning `<Playnite install dir>/Emulation/Emulators/*/emulator.yaml` at startup —
-confirmed on Playnite 10.56: dropping `dist/RetroArchSteam` in there makes
-"RetroArch (Steam)" show up in the emulator picker. `dist/` is the delivery directory —
-its contents are what an end user copies into their Playnite install; see
-[dist/README.md](dist/README.md) for the end-user instructions.
-
-**Not yet verified on hardware:** emulator *discovery* works, but whether Playnite
-accepts a profile where the launched executable (`steam.exe`) lives outside the folder
-holding the cores (`steamapps\common\RetroArch\`) — i.e. a full end-to-end game launch —
-hasn't been confirmed yet.
+One manual, one-time step is required: `$PlayniteApi.Database.Emulators.Add(...)` throws
+`NotSupportedException` for every overload when called from a script, so the sync script
+can't create the `Emulator` entity itself — only sync its profiles. Create it once:
+Library > Emulators > Add > Custom emulator, name it exactly `RetroArch (Steam)`, save,
+then run the sync. See [dist/README.md](dist/README.md) for the full end-user steps.
 
 ## PlayniteRetroarchRommKit extension
 
-`emulator.yaml` has no hook for running a script around a game launch, so
-`fetch-core.ps1`/`pull-sync-save.ps1`/`push-sync-save.ps1` can't be wired in there.
-Instead, `src/extension/PlayniteRetroarchRommKit` is a Playnite [script
-extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html): it
-hooks `OnGameStarting` (runs `fetch-core.ps1` then `pull-sync-save.ps1`) and
-`OnGameStopped` (runs `push-sync-save.ps1`), guarded by a check that the game's play
-action actually targets the `retroarch_steam` emulator — those events fire for every
+`src/extension/PlayniteRetroarchRommKit` is a Playnite [script
+extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html). It hooks:
+
+- `OnGameStarting`: runs `fetch-core.ps1` (downloads the profile's libretro core from the
+  buildbot if missing — the Steam build has no built-in core updater) then
+  `pull-sync-save.ps1`.
+- `OnGameStopped`: runs `push-sync-save.ps1`.
+- `GetMainMenuItems`: adds "Sync RetroArch (Steam) profiles", which runs
+  `sync-emulator-profiles.ps1` (see above).
+
+Both `OnGameStarting`/`OnGameStopped` are guarded by a check that the game's play action
+actually targets the emulator named `RetroArch (Steam)` — those events fire for every
 game in the library, not just RetroArch ones.
+
+**Playnite invokes each of these as a scriptblock detached from the rest of the
+module** — confirmed on hardware: a call from `OnGameStarting` to a sibling function
+defined elsewhere in `main.psm1` fails at runtime with "not recognized as a cmdlet",
+even though it's the same file. All logic is therefore inlined in each hook instead of
+shared through a helper, and `$PlayniteApi` is passed explicitly into `Scripts\*.ps1`
+files rather than relied on as an ambient variable.
 
 Run
 
@@ -57,9 +66,9 @@ Run
 uv run src/build-extension.py
 ```
 
-to copy it into `dist/PlayniteRetroarchRommKit` (no fetch/transform needed here,
-unlike the emulator profile above — this just keeps `dist/` as build output only).
-See [dist/README.md](dist/README.md) for the end-user install steps.
+to copy it into `dist/PlayniteRetroarchRommKit` (no fetch/transform needed here — this
+just keeps `dist/` as build output only). See [dist/README.md](dist/README.md) for the
+end-user install steps.
 
 Targets Playnite 10's PowerShell script extensions. Support for those is slated for
 removal in Playnite 11, at which point this would need to become a C# `GenericPlugin`

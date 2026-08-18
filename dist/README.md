@@ -1,67 +1,59 @@
 # Playnite kit - RetroArch (Steam) + RomM - install guide
 
-`dist/` contains two independent things to drop into your Playnite install.
-You need both for cores to auto-download; only the first is required to get
-RetroArch (Steam) working as a regular emulator.
+`dist/PlayniteRetroarchRommKit/` is the only thing you need to drop into your
+Playnite install. It sets up the "RetroArch (Steam)" emulator itself (~100
+profiles, one per libretro core) and downloads missing cores automatically -
+no manual `emulator.yaml` drop, no Installation Directory guesswork, no
+symlink.
 
-## 1. RetroArch (Steam) emulator profile (`dist/RetroArchSteam/`)
+## Requirements
 
-Playnite emulator definition that launches games through Steam
-(`steam.exe -applaunch 1118310 ...`) instead of `retroarch.exe` directly, so
-Steam Input, the overlay, and playtime tracking keep working - this matters
-on a handheld like the ROG Ally where a direct exe launch bypasses all of
-that.
-
-**Requirements**
 - RetroArch installed through Steam: https://store.steampowered.com/app/1118310
-
-**Install**
-1. Copy the whole `RetroArchSteam` folder into
-   `<Playnite install dir>\Emulation\Emulators\`.
-2. Restart Playnite. "RetroArch (Steam)" should now show up under
-   Library > Emulators.
-3. Open it and set **Installation Directory** to RetroArch's folder inside
-   your Steam library, e.g.
-   `<Steam library>\steamapps\common\RetroArch`.
-4. Assign the emulator (and the profile matching each platform's core) to
-   your games as usual, either per-game or through Playnite's default
-   emulation settings for a platform.
-
-**Known limitation:** whether Playnite accepts this Installation Directory /
-executable split (`steam.exe` living outside the folder that holds
-`cores\`) for a real, end-to-end game launch hasn't been confirmed on
-hardware yet - only that the emulator and its profiles show up correctly.
-If launches fail, check Playnite's log first.
-
-## 2. PlayniteRetroarchRommKit extension (`dist/PlayniteRetroarchRommKit/`)
-
-Playnite script extension that hooks into game start/stop for the
-"RetroArch (Steam)" emulator above (matched by its built-in config id
-`retroarch_steam`, so it only activates for games using that emulator):
-
-- **On game start:** downloads the libretro core the launched profile needs
-  from the [libretro buildbot](https://buildbot.libretro.com/nightly/windows/x86_64/latest/)
-  if it isn't already present in RetroArch's `cores\` folder - the Steam
-  build has no built-in core updater, unlike standalone RetroArch.
-- **On game stop:** intended to sync save files with a self-hosted RomM
-  server. **Not implemented yet** - installing the extension today only
-  gets you automatic core downloads.
-
-**Requirements**
 - Playnite 10.x with PowerShell script extensions (this support is slated
   for removal in Playnite 11).
-- The RetroArch (Steam) emulator profile above, already configured.
 
-**Install**
+## Install
+
 1. Copy the whole `PlayniteRetroarchRommKit` folder into
    `<Playnite install dir>\Extensions\`.
 2. Restart Playnite.
-3. Launch a game through "RetroArch (Steam)" - if its core is missing, you
-   should see a "Core '...' not found. Downloading..." message before the
-   game starts.
+3. Create the emulator shell once: Library > Emulators > Add > **Custom
+   emulator**, name it exactly `RetroArch (Steam)`, save. (Playnite's
+   scripting API can't create a new emulator entity by itself - it can only
+   sync profiles into one that already exists, so this one step stays
+   manual.)
+4. Main menu > **"Sync RetroArch (Steam) profiles"**. A dialog confirms how
+   many profiles were created/updated. Re-run this any time (e.g. after a
+   RetroArch update) to refresh the profile list.
+5. Assign the emulator (and the profile matching each platform's core) to
+   your games as usual, either per-game or through Playnite's default
+   emulation settings for a platform.
+6. Launch a game - if its core is missing, you should see a "Core '...' not
+   found. Downloading..." message before the game starts.
+
+## Save sync with RomM
+
+**Not implemented yet.** The extension hooks a game-stop handler intended to
+push saves to a self-hosted RomM server, but that script is still a stub -
+installing the extension today only gets you automatic core downloads and
+correct start/stop tracking.
+
+## Troubleshooting
+
+- **"Sync" says RetroArch wasn't found:** it looks for RetroArch under
+  `steamapps\common\RetroArch` in every Steam library listed in
+  `steamapps\libraryfolders.vdf`. Make sure RetroArch is actually installed
+  through Steam first.
+- **No such emulator / sync says it doesn't exist:** the Custom emulator
+  must be named exactly `RetroArch (Steam)` (step 3 above) before syncing.
+- **Core doesn't download / no visible error:** Playnite runs
+  `OnGameStarting` as an isolated scriptblock with no console attached, so
+  errors don't surface anywhere visible by default. Use Playnite's built-in
+  debug console (main menu > Extensions, `Ctrl+V` then Enter to load
+  `$PlayniteApi`) to call the scripts under `Scripts\` directly and see
+  their output.
 
 ## Uninstall
 
-Delete `<Playnite install dir>\Emulation\Emulators\RetroArchSteam` and/or
-`<Playnite install dir>\Extensions\PlayniteRetroarchRommKit`, then restart
-Playnite.
+Delete `<Playnite install dir>\Extensions\PlayniteRetroarchRommKit` and the
+"RetroArch (Steam)" emulator (Library > Emulators), then restart Playnite.

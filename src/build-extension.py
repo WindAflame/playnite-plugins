@@ -2,10 +2,9 @@
 Copy the PlayniteRetroarchRommKit script extension source into dist/, ready
 to be dropped into <Playnite install dir>/Extensions/.
 
-Unlike convert-retroarch-to-steam-compatiblity.py, there's no fetch/transform
-step here - src/extension/PlayniteRetroarchRommKit is delivered as-is. This
-script only exists so dist/ stays build output and never holds hand-edited
-source directly.
+There's no fetch/transform step here - src/extension/PlayniteRetroarchRommKit
+is delivered as-is. This script only exists so dist/ stays build output and
+never holds hand-edited source directly.
 """
 
 import shutil
