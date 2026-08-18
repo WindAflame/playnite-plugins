@@ -1,5 +1,5 @@
-Id: PlayniteRetroarchRommKit
-Name: RetroArch (Steam) - Save Sync
+Id: PlayniteRetroArchSteamKit
+Name: RetroArch (Steam)
 Author: WindAflame
 Version: 0.1.0
 Module: main.psm1

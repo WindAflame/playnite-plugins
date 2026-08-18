@@ -1,6 +1,13 @@
 # Playnite kit - RetroArch Steam with save-sync through Romm
 
-Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server. Auto-configures emulator profiles, fetches cores on launch, and syncs saves and states on game start/exit.
+Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server. This repo
+is organized as multiple Playnite extensions:
+
+- **`PlayniteRetroArchSteamKit`** (below): auto-configures RetroArch (Steam) emulator
+  profiles and fetches missing cores on launch. Self-contained, no RomM involved.
+- **Save-sync extension** (not developed yet): will sync saves/states with RomM on game
+  start/exit, depending on a third-party RomM client extension for credentials (API token
+  or user:pwd) rather than handling auth itself.
 
 ## Development
 
@@ -9,7 +16,7 @@ Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server. A
 
 ## Dependencies
 
-- Save-sync : https://github.com/Covin90/romm-retroarch-sync
+- Save-sync reference : https://github.com/Covin90/romm-retroarch-sync
 
 ## RetroArch (Steam) emulator profiles
 
@@ -19,7 +26,7 @@ tracking working — this matters on a handheld like the ROG Ally, where a direc
 launch bypasses all of that — games need to launch through
 `steam.exe -applaunch 1118310 ...` instead.
 
-`src/extension/PlayniteRetroarchRommKit/Scripts/sync-emulator-profiles.ps1` (run from the
+`src/extension/PlayniteRetroArchSteamKit/Scripts/sync-emulator-profiles.ps1` (run from the
 extension's main menu action, see below) generates these as **Custom** emulator profiles,
 which set `Executable`/`Arguments` directly:
 
@@ -37,21 +44,20 @@ can't create the `Emulator` entity itself — only sync its profiles. Create it 
 Library > Emulators > Add > Custom emulator, name it exactly `RetroArch (Steam)`, save,
 then run the sync. See [dist/README.md](dist/README.md) for the full end-user steps.
 
-## PlayniteRetroarchRommKit extension
+## PlayniteRetroArchSteamKit extension
 
-`src/extension/PlayniteRetroarchRommKit` is a Playnite [script
+`src/extension/PlayniteRetroArchSteamKit` is a Playnite [script
 extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html). It hooks:
 
 - `OnGameStarting`: runs `fetch-core.ps1` (downloads the profile's libretro core from the
-  buildbot if missing — the Steam build has no built-in core updater) then
-  `pull-sync-save.ps1`.
-- `OnGameStopped`: runs `push-sync-save.ps1`.
+  buildbot if missing — the Steam build has no built-in core updater).
 - `GetMainMenuItems`: adds "Sync RetroArch (Steam) profiles", which runs
   `sync-emulator-profiles.ps1` (see above).
 
-Both `OnGameStarting`/`OnGameStopped` are guarded by a check that the game's play action
-actually targets the emulator named `RetroArch (Steam)` — those events fire for every
-game in the library, not just RetroArch ones.
+`OnGameStarting` is guarded by a check that the game's play action actually targets the
+emulator named `RetroArch (Steam)` — this event fires for every game in the library, not
+just RetroArch ones. No save/RomM logic lives here at all - that's the separate,
+not-yet-developed save-sync extension mentioned above.
 
 **Playnite invokes each of these as a scriptblock detached from the rest of the
 module** — confirmed on hardware: a call from `OnGameStarting` to a sibling function
@@ -66,9 +72,9 @@ Run
 uv run src/build-extension.py
 ```
 
-to copy it into `dist/PlayniteRetroarchRommKit` (no fetch/transform needed here — this
-just keeps `dist/` as build output only). See [dist/README.md](dist/README.md) for the
-end-user install steps.
+to copy every extension under `src/extension/` into `dist/` (no fetch/transform needed
+here — this just keeps `dist/` as build output only). See
+[dist/README.md](dist/README.md) for the end-user install steps.
 
 Targets Playnite 10's PowerShell script extensions. Support for those is slated for
 removal in Playnite 11, at which point this would need to become a C# `GenericPlugin`

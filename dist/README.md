@@ -1,10 +1,11 @@
-# Playnite kit - RetroArch (Steam) + RomM - install guide
+# Playnite kit - RetroArch (Steam) - install guide
 
-`dist/PlayniteRetroarchRommKit/` is the only thing you need to drop into your
+`dist/PlayniteRetroArchSteamKit/` is the only thing you need to drop into your
 Playnite install. It sets up the "RetroArch (Steam)" emulator itself (~100
 profiles, one per libretro core) and downloads missing cores automatically -
 no manual `emulator.yaml` drop, no Installation Directory guesswork, no
-symlink.
+symlink. It does not touch saves or RomM at all - that's a separate,
+not-yet-developed extension.
 
 ## Requirements
 
@@ -14,7 +15,7 @@ symlink.
 
 ## Install
 
-1. Copy the whole `PlayniteRetroarchRommKit` folder into
+1. Copy the whole `PlayniteRetroArchSteamKit` folder into
    `<Playnite install dir>\Extensions\`.
 2. Restart Playnite.
 3. Create the emulator shell once: Library > Emulators > Add > **Custom
@@ -30,13 +31,6 @@ symlink.
    emulation settings for a platform.
 6. Launch a game - if its core is missing, you should see a "Core '...' not
    found. Downloading..." message before the game starts.
-
-## Save sync with RomM
-
-**Not implemented yet.** The extension hooks a game-stop handler intended to
-push saves to a self-hosted RomM server, but that script is still a stub -
-installing the extension today only gets you automatic core downloads and
-correct start/stop tracking.
 
 ## Troubleshooting
 
@@ -55,5 +49,5 @@ correct start/stop tracking.
 
 ## Uninstall
 
-Delete `<Playnite install dir>\Extensions\PlayniteRetroarchRommKit` and the
+Delete `<Playnite install dir>\Extensions\PlayniteRetroArchSteamKit` and the
 "RetroArch (Steam)" emulator (Library > Emulators), then restart Playnite.
