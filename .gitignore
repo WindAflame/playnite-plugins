@@ -1,4 +1,5 @@
 vendors
 .venv
 __pycache__
-dist
+dist/*
+!dist/README.md
