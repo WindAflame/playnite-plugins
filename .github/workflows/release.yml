@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Build extensions
+        run: python src/build-extension.py
+
+      - name: Zip each dist item
+        id: zip
+        run: |
+          mkdir -p release-assets
+          for item in dist/*/; do
+            name="$(basename "$item")"
+            (cd dist && zip -r "../release-assets/${name}.zip" "$name")
+          done
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*.zip
+          generate_release_notes: true
