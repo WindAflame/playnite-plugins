@@ -9,32 +9,43 @@ on:
 permissions:
   contents: write
 
+env:
+  # Pin to a Playnite 10.x release - Toolbox.exe from 11 would produce
+  # packages for the plugin model, not the PowerShell scripts these
+  # extensions are written against (see README's Playnite 11 note).
+  PLAYNITE_VERSION: "10.56"
+
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version-file: ".python-version"
 
       - name: Build extensions
         run: python src/build-extension.py
 
-      - name: Zip each dist item
-        id: zip
+      - name: Setup Playnite
+        shell: pwsh
         run: |
-          mkdir -p release-assets
-          for item in dist/*/; do
-            name="$(basename "$item")"
-            (cd dist && zip -r "../release-assets/${name}.zip" "$name")
-          done
+          Invoke-WebRequest -Uri "https://github.com/JosefNemec/Playnite/releases/download/$env:PLAYNITE_VERSION/$env:PLAYNITE_VERSION.7z" -OutFile "Playnite.7z"
+          7z x "Playnite.7z" -oPlaynite
+
+      - name: Pack extensions with Toolbox
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path PackingOutput | Out-Null
+          Get-ChildItem -Directory dist | ForEach-Object {
+            & "Playnite\Toolbox.exe" pack $_.FullName "PackingOutput"
+          }
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          files: release-assets/*.zip
+          files: PackingOutput/*.pext
           generate_release_notes: true
