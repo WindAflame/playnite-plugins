@@ -12,9 +12,9 @@
 #    that lands).
 # 2. TODO: resolve RetroArch's save directory. Two sources, in order:
 #      a. Auto-detect: if the "RetroArch (Steam)" emulator (from
-#         PlayniteRetroArchSteamKit) exists, its InstallDir + "\saves" and
+#         PlaynitePlugins-RetroArchSteam) exists, its InstallDir + "\saves" and
 #         "\states" are almost certainly right (same folder
-#         sync-emulator-profiles.ps1 resolves via the registry/vdf lookup).
+#         sync-retroarch-emulators-profiles.ps1 resolves via the registry/vdf lookup).
 #      b. Manual override: TODO add a GetMainMenuItems action (or per-game
 #         setting?) letting the user point at a different saves/states
 #         folder, for setups where RetroArch's default paths were changed

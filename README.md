@@ -3,7 +3,7 @@
 Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server. This repo
 is organized as multiple Playnite extensions:
 
-- **`PlayniteRetroArchSteamKit`** (below): auto-configures RetroArch (Steam) emulator
+- **`PlaynitePlugins-RetroArchSteam`** (below): auto-configures RetroArch (Steam) emulator
   profiles and fetches missing cores on launch. Self-contained, no RomM involved.
 - **`PlayniteRommSaveSyncKit`** (scaffold only, not implemented): will sync saves/states
   with RomM on game start/exit. Depends on the third-party [RomM Library
@@ -33,7 +33,7 @@ tracking working — this matters on a handheld like the ROG Ally, where a direc
 launch bypasses all of that — games need to launch through
 `steam.exe -applaunch 1118310 ...` instead.
 
-`src/extension/PlayniteRetroArchSteamKit/Scripts/sync-emulator-profiles.ps1` (run from the
+`src/extension/PlaynitePlugins-RetroArchSteam/Scripts/sync-retroarch-emulators-profiles.ps1` (run from the
 extension's main menu action, see below) generates these as **Custom** emulator profiles,
 which set `Executable`/`Arguments` directly:
 
@@ -51,15 +51,15 @@ can't create the `Emulator` entity itself — only sync its profiles. Create it 
 Library > Emulators > Add > Custom emulator, name it exactly `RetroArch (Steam)`, save,
 then run the sync. See [dist/README.md](dist/README.md) for the full end-user steps.
 
-## PlayniteRetroArchSteamKit extension
+## PlaynitePlugins-RetroArchSteam extension
 
-`src/extension/PlayniteRetroArchSteamKit` is a Playnite [script
+`src/extension/PlaynitePlugins-RetroArchSteam` is a Playnite [script
 extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html). It hooks:
 
 - `OnGameStarting`: runs `fetch-core.ps1` (downloads the profile's libretro core from the
   buildbot if missing — the Steam build has no built-in core updater).
 - `GetMainMenuItems`: adds "Sync RetroArch (Steam) profiles", which runs
-  `sync-emulator-profiles.ps1` (see above).
+  `sync-retroarch-emulators-profiles.ps1` (see above).
 
 `OnGameStarting` is guarded by a check that the game's play action actually targets the
 emulator named `RetroArch (Steam)` — this event fires for every game in the library, not

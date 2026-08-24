@@ -1,6 +1,6 @@
 # Playnite kit - RetroArch (Steam) - install guide
 
-`dist/PlayniteRetroArchSteamKit/` is the only thing you need to drop into your
+`dist/PlaynitePlugins-RetroArchSteam/` is the only thing you need to drop into your
 Playnite install. It sets up the "RetroArch (Steam)" emulator itself (~100
 profiles, one per libretro core) and downloads missing cores automatically -
 no manual `emulator.yaml` drop, no Installation Directory guesswork, no
@@ -15,7 +15,7 @@ not-yet-developed extension.
 
 ## Install
 
-1. Copy the whole `PlayniteRetroArchSteamKit` folder into
+1. Copy the whole `PlaynitePlugins-RetroArchSteam` folder into
    `<Playnite install dir>\Extensions\`.
 2. Restart Playnite.
 3. Create the emulator shell once: Library > Emulators > Add > **Custom
@@ -49,5 +49,5 @@ not-yet-developed extension.
 
 ## Uninstall
 
-Delete `<Playnite install dir>\Extensions\PlayniteRetroArchSteamKit` and the
+Delete `<Playnite install dir>\Extensions\PlaynitePlugins-RetroArchSteam` and the
 "RetroArch (Steam)" emulator (Library > Emulators), then restart Playnite.
