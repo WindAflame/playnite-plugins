@@ -9,6 +9,7 @@ export default defineConfig({
 	// location for every project in this monorepo.
 	outDir: '../dist/docs',
 	site: 'https://WindAflame.github.io',
+	base: '/playnite-retroarch-steam-romm-kit',
 	integrations: [
 		starlight({
 			title: 'Playnite Plugins',
