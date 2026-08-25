@@ -1,0 +1,7 @@
+{
+  "name": "playnite-plugins",
+  "private": true,
+  "workspaces": [
+    "docs"
+  ]
+}

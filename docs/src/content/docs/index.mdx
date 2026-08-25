@@ -1,0 +1,34 @@
+---
+title: Playnite Plugins
+description: Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server.
+template: splash
+hero:
+  tagline: Bridges Playnite, the Steam build of RetroArch, and a self-hosted RomM server.
+  image:
+    file: ../../assets/houston.webp
+  actions:
+    - text: Get Started
+      link: /guides/getting-started/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/WindAflame/playnite-retroarch-steam-romm-kit
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Plugins in this repo
+
+<CardGrid stagger>
+	<Card title="RetroArch (Steam)" icon="rocket">
+		Auto-configures RetroArch (Steam) emulator profiles and fetches missing
+		libretro cores on launch. Self-contained, no RomM involved.
+		[Read the guide &rarr;](/plugins/retroarch-steam/)
+	</Card>
+	<Card title="RomM Save Sync" icon="puzzle">
+		Scaffold only, not implemented yet — will sync saves/states with a
+		self-hosted RomM server on game start/exit.
+		[Read the guide &rarr;](/plugins/romm-save-sync/)
+	</Card>
+</CardGrid>

@@ -1,12 +1,11 @@
 """
-Copy every script extension under src/extension/ into dist/, ready to be
-dropped into <Playnite install dir>/Extensions/.
+Copy every Playnite plugin under plugins/ into dist/, ready to be dropped
+into <Playnite install dir>/Extensions/.
 
-There's no fetch/transform step here - each src/extension/<name> folder is
+There's no fetch/transform step here - each plugins/<name> folder is
 delivered as-is. This script only exists so dist/ stays build output and
-never holds hand-edited source directly. Loops over every extension folder
-so adding a new one (e.g. the future RomM save-sync extension) doesn't
-require touching this script.
+never holds hand-edited source directly. Loops over every plugin folder so
+adding a new one doesn't require touching this script.
 """
 
 import shutil
@@ -14,18 +13,18 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-EXTENSIONS_DIR = REPO_ROOT / "src" / "extension"
+PLUGINS_DIR = REPO_ROOT / "plugins"
 DIST_DIR = REPO_ROOT / "dist"
 
 
 def main() -> int:
-    if not EXTENSIONS_DIR.is_dir():
-        print(f"Extensions directory not found: {EXTENSIONS_DIR}", file=sys.stderr)
+    if not PLUGINS_DIR.is_dir():
+        print(f"Plugins directory not found: {PLUGINS_DIR}", file=sys.stderr)
         return 1
 
-    extension_dirs = [d for d in EXTENSIONS_DIR.iterdir() if d.is_dir()]
+    extension_dirs = [d for d in PLUGINS_DIR.iterdir() if d.is_dir()]
     if not extension_dirs:
-        print(f"No extension folders found under {EXTENSIONS_DIR}", file=sys.stderr)
+        print(f"No plugin folders found under {PLUGINS_DIR}", file=sys.stderr)
         return 1
 
     for source_dir in extension_dirs:

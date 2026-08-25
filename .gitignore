@@ -1,6 +1,5 @@
 vendors
 .venv
 __pycache__
-dist/*
-!dist/README.md
+dist/
 node_modules

@@ -36,16 +36,11 @@ jobs:
           Invoke-WebRequest -Uri "https://github.com/JosefNemec/Playnite/releases/download/$env:PLAYNITE_VERSION/$env:PLAYNITE_VERSION.7z" -OutFile "Playnite.7z"
           7z x "Playnite.7z" -oPlaynite
 
-      - name: Pack extensions with Toolbox
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path PackingOutput | Out-Null
-          Get-ChildItem -Directory dist | ForEach-Object {
-            & "Playnite\Toolbox.exe" pack $_.FullName "PackingOutput"
-          }
+      - name: Pack extensions
+        run: python tools/pack-extensions.py --toolbox Playnite/Toolbox.exe
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          files: PackingOutput/*.pext
+          files: dist/pext/*.pext
           generate_release_notes: true
