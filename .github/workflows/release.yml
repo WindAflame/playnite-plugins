@@ -28,7 +28,7 @@ jobs:
           python-version-file: ".python-version"
 
       - name: Build extensions
-        run: python src/build-extension.py
+        run: python tools/build-extension.py
 
       - name: Setup Playnite
         shell: pwsh

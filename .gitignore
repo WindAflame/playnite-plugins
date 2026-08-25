@@ -3,3 +3,4 @@ vendors
 __pycache__
 dist/*
 !dist/README.md
+node_modules
