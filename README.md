@@ -1,13 +1,23 @@
-# Playnite Plugins
+<!-- trunk-ignore-all(markdownlint/MD033) -->
+<!-- trunk-ignore(markdownlint/MD041) -->
+<div align="center">
 
-[![CI - Release](https://github.com/WindAflame/playnite-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml)
-[![CI - Docs](https://github.com/WindAflame/playnite-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml)
+  <img src="docs/src/assets/playnite.svg" height="180px" width="auto" alt="Playnite Plugins logo">
+    <h3 style="font-size: 25px;">
+    Playnite plugins for RetroArch (Steam) and RomM.
+  </h3>
 
-Bridges [Playnite](https://playnite.link/), the Steam build of RetroArch, and a
-self-hosted [RomM](https://github.com/rommapp/romm) server.
+<br>
 
-For install steps and per-plugin guides, see the docs site in [`docs`](docs)
-(`npm install && npm run dev --workspace docs` to preview it locally).
+[![Releases](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml)
+[![Deploy](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml)
+
+  </div>
+</div>
+
+# Overview
+
+This repository hosts plugins that bridge [Playnite](https://playnite.link/), the Steam build of RetroArch, and a self-hosted [RomM](https://github.com/rommapp/romm) server.
 
 ## Plugins
 
@@ -20,17 +30,6 @@ Each is a Playnite [script
 extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html)
 (PowerShell), targeting Playnite 10.x — support for script extensions is slated for
 removal in Playnite 11.
-
-## Repo layout
-
-- `plugins/<name>/` — one Playnite script extension per folder.
-- `docs/` — the Astro Starlight docs site (source for the guide linked above).
-- `tools/` — the Python scripts below.
-- `dist/` — build output only, never hand-edited. Single output location for every
-  project in the repo:
-  - `dist/<plugin>/` — each plugin, copied as-is.
-  - `dist/pext/<plugin>.pext` — each plugin packed for Playnite.
-  - `dist/docs/` — the built docs site.
 
 ## Development
 
