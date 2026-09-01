@@ -9,7 +9,7 @@ export default defineConfig({
 	// location for every project in this monorepo.
 	outDir: '../dist/docs',
 	site: 'https://WindAflame.github.io',
-	base: '/playnite-retroarch-steam-romm-kit',
+	base: '/playnite-plugins',
 	integrations: [
 		starlight({
 			title: 'Playnite Plugins',
@@ -19,7 +19,7 @@ export default defineConfig({
 				{
 					icon: 'github',
 					label: 'GitHub',
-					href: 'https://github.com/WindAflame/playnite-retroarch-steam-romm-kit',
+					href: 'https://github.com/WindAflame/playnite-plugins',
 				},
 			],
 			sidebar: [

@@ -21,7 +21,7 @@ targeting Playnite 10.x.
 
 Each plugin has its own guide with exact steps — see the **Plugins** section in the sidebar.
 In short: grab the packaged `.pext` for the plugin you want from the [GitHub
-Releases](https://github.com/WindAflame/playnite-retroarch-steam-romm-kit/releases) page and
+Releases](https://github.com/WindAflame/playnite-plugins/releases) page and
 open it with Playnite.
 
 ## Building from source

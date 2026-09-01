@@ -24,7 +24,7 @@ definition so the ~100 profiles never need to be entered by hand.
 ## Install
 
 1. Download the latest `PlaynitePlugins-RetroArchSteam` `.pext` from [GitHub
-   Releases](https://github.com/WindAflame/playnite-retroarch-steam-romm-kit/releases) and
+   Releases](https://github.com/WindAflame/playnite-plugins/releases) and
    open it with Playnite (or copy the whole `PlaynitePlugins-RetroArchSteam` folder into
    `<Playnite install dir>\Extensions\` and restart Playnite).
 2. Create the emulator shell once: Library > Emulators > Add > **Custom emulator**, name it
