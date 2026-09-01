@@ -1,5 +1,8 @@
 # Playnite Plugins
 
+[![CI - Release](https://github.com/WindAflame/playnite-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml)
+[![CI - Docs](https://github.com/WindAflame/playnite-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml)
+
 Bridges [Playnite](https://playnite.link/), the Steam build of RetroArch, and a
 self-hosted [RomM](https://github.com/rommapp/romm) server.
 
@@ -8,10 +11,10 @@ For install steps and per-plugin guides, see the docs site in [`docs`](docs)
 
 ## Plugins
 
-| Plugin                                                            | Status         | What it does                                                                              |
-| ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------- |
-| [RetroArch (Steam)](plugins/PlaynitePlugins-RetroArchSteam)      | Usable         | Auto-configures RetroArch (Steam) emulator profiles in Playnite and fetches missing libretro cores on launch. |
-| [RomM Save Sync](plugins/PlayniteRommSaveSyncKit)                 | Scaffold only  | Will sync saves/states with RomM on game start/exit. Not implemented yet — see the TODOs in that folder. |
+| Plugin                                                      | Status        | What it does                                                                                                  |
+| ----------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------- |
+| [RetroArch (Steam)](plugins/PlaynitePlugins-RetroArchSteam) | Usable        | Auto-configures RetroArch (Steam) emulator profiles in Playnite and fetches missing libretro cores on launch. |
+| [RomM Save Sync](plugins/PlayniteRommSaveSyncKit)           | Scaffold only | Will sync saves/states with RomM on game start/exit. Not implemented yet — see the TODOs in that folder.      |
 
 Each is a Playnite [script
 extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html)
