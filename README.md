@@ -9,8 +9,11 @@
 
 <br>
 
-[![Releases](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml)
-[![Deploy](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml)
+[![Version](https://img.shields.io/github/v/release/WindAflame/playnite-plugins?label=Version)](https://github.com/WindAflame/playnite-plugins/releases/latest)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue)](LICENSE)
+
+[![CI: Release](https://img.shields.io/github/actions/workflow/status/WindAflame/playnite-plugins/release.yml?label=CI%3A%20Release)](https://github.com/WindAflame/playnite-plugins/actions/workflows/release.yml)
+[![CI: Deploy](https://img.shields.io/github/actions/workflow/status/WindAflame/playnite-plugins/deploy-docs.yml?label=CI%3A%20Deploy)](https://github.com/WindAflame/playnite-plugins/actions/workflows/deploy-docs.yml)
 
   </div>
 </div>
@@ -48,3 +51,11 @@ removal in Playnite 11.
 Implementation notes and gotchas (e.g. why profiles are synced instead of created, why
 hook logic can't be shared through a helper function) live as comments next to the code
 they explain, in each plugin's `main.psm1` and `Scripts/*.ps1`.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[PolyForm Noncommercial License 1.0.0](LICENSE) — noncommercial use only.
