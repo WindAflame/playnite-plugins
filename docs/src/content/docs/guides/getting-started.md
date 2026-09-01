@@ -7,10 +7,10 @@ This repo bridges [Playnite](https://playnite.link/), the Steam build of RetroAr
 self-hosted [RomM](https://github.com/rommapp/romm) server. It's organized as a monorepo
 with one folder per Playnite plugin under `plugins/`, plus this documentation site:
 
-- **[RetroArch (Steam)](/plugins/retroarch-steam/)**: auto-configures RetroArch (Steam)
+- **[RetroArch (Steam)](../plugins/retroarch-steam/)**: auto-configures RetroArch (Steam)
   emulator profiles and fetches missing libretro cores on launch. Self-contained, no RomM
   involved. Usable today.
-- **[RomM Save Sync](/plugins/romm-save-sync/)**: will sync saves/states with RomM on game
+- **[RomM Save Sync](../plugins/romm-save-sync/)**: will sync saves/states with RomM on game
   start/exit. Scaffold only, not implemented yet.
 
 Both are Playnite [script

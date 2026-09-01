@@ -10,7 +10,7 @@ sync logic is not written yet — see the source for the full TODO list.
 
 Once implemented, this plugin will sync saves/states with a self-hosted
 [RomM](https://github.com/rommapp/romm) server on game start/exit, for games launched
-through the [RetroArch (Steam)](/plugins/retroarch-steam/) plugin.
+through the [RetroArch (Steam)](retroarch-steam/) plugin.
 
 It depends on the third-party [RomM Library
 Importer](https://github.com/rommapp/playnite-plugin) extension for RomM credentials (API
