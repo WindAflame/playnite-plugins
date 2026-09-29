@@ -1,9 +1,9 @@
 ---
 title: Playnite Plugins
-description: Playnite plugins for RetroArch (Steam) and RomM.
+description: Playnite plugins for RetroArch (Steam).
 template: splash
 hero:
-  tagline: Playnite plugins for RetroArch (Steam) and RomM.
+  tagline: Playnite plugins for RetroArch (Steam).
   image:
     file: ../../assets/playnite.svg
   actions:
@@ -23,12 +23,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 <CardGrid>
 	<Card title="RetroArch (Steam)" icon="rocket">
 		Auto-configures RetroArch (Steam) emulator profiles and fetches missing
-		libretro cores on launch. Self-contained, no RomM involved.
+		libretro cores on launch.
 		[Read the guide &rarr;](plugins/retroarch-steam/)
 	</Card>
-	<Card title="RomM Save Sync" icon="puzzle">
-		Scaffold only, not implemented yet — will sync saves/states with a
-		self-hosted RomM server on game start/exit.
-		[Read the guide &rarr;](plugins/romm-save-sync/)
-	</Card>
 </CardGrid>
+
+Looking for save sync with a self-hosted [RomM](https://github.com/rommapp/romm) server? Use the official
+[RomM Playnite extension](https://github.com/rommapp/playnite-plugin).

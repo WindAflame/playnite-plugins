@@ -4,7 +4,7 @@
 
   <img src="docs/src/assets/playnite.svg" height="180px" width="auto" alt="Playnite Plugins logo">
     <h3 style="font-size: 25px;">
-    Playnite plugins for RetroArch (Steam) and RomM.
+    Playnite plugins for RetroArch (Steam).
   </h3>
 
 <br>
@@ -20,16 +20,19 @@
 
 # Overview
 
-This repository hosts plugins that bridge [Playnite](https://playnite.link/), the Steam build of RetroArch, and a self-hosted [RomM](https://github.com/rommapp/romm) server.
+This repository hosts plugins for [Playnite](https://playnite.link/) and the Steam build of RetroArch.
 
 ## Plugins
 
-| Plugin                                                      | Status        | What it does                                                                                                  |
-| ----------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------- |
-| [RetroArch (Steam)](plugins/PlaynitePlugins-RetroArchSteam) | Usable        | Auto-configures RetroArch (Steam) emulator profiles in Playnite and fetches missing libretro cores on launch. |
-| [RomM Save Sync](plugins/PlayniteRommSaveSyncKit)           | Scaffold only | Will sync saves/states with RomM on game start/exit. Not implemented yet — see the TODOs in that folder.      |
+| Plugin                                                      | Status | What it does                                                                                                  |
+| ----------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| [RetroArch (Steam)](plugins/PlaynitePlugins-RetroArchSteam) | Usable | Auto-configures RetroArch (Steam) emulator profiles in Playnite and fetches missing libretro cores on launch. |
 
-Each is a Playnite [script
+Looking for save sync with a self-hosted [RomM](https://github.com/rommapp/romm) server? Use
+the official [RomM Playnite extension](https://github.com/rommapp/playnite-plugin) — it
+handles it, so this repo no longer ships its own.
+
+Each plugin is a Playnite [script
 extension](https://api.playnite.link/docs/tutorials/extensions/scripting.html)
 (PowerShell), targeting Playnite 10.x — support for script extensions is slated for
 removal in Playnite 11.

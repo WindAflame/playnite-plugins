@@ -14,7 +14,7 @@ export default defineConfig({
 		starlight({
 			title: 'Playnite Plugins',
 			description:
-				'User guide and download links for the RetroArch (Steam) and RomM save-sync Playnite extensions.',
+				'User guide and download links for the RetroArch (Steam) Playnite extension.',
 			social: [
 				{
 					icon: 'github',
@@ -34,7 +34,6 @@ export default defineConfig({
 					label: 'Plugins',
 					items: [
 						{ label: 'RetroArch (Steam)', slug: 'plugins/retroarch-steam' },
-						{ label: 'RomM Save Sync', slug: 'plugins/romm-save-sync' },
 					],
 				},
 			],

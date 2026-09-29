@@ -24,8 +24,7 @@
 # Directory mode handles both correctly.
 #
 # InstallDir is also set on the emulator itself (not just TrackingPath on
-# each profile) - fetch-core.ps1 and PlayniteRommSaveSyncKit's
-# pull-sync-save.ps1 both resolve RetroArch's folder from it.
+# each profile) - fetch-core.ps1 resolves RetroArch's folder from it.
 
 param(
     [Parameter(Mandatory)]

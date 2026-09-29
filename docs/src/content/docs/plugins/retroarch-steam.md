@@ -5,8 +5,8 @@ description: Install guide for the RetroArch (Steam) Playnite plugin.
 
 Sets up the "RetroArch (Steam)" emulator itself (~100 profiles, one per libretro core) and
 downloads missing cores automatically — no manual `emulator.yaml` drop, no Installation
-Directory guesswork, no symlink. It does not touch saves or RomM at all — that's the
-separate, not-yet-implemented [RomM Save Sync](romm-save-sync/) plugin.
+Directory guesswork, no symlink. It does not touch saves or RomM at all — for save sync
+with a RomM server, use the official [RomM Playnite extension](https://github.com/rommapp/playnite-plugin).
 
 RetroArch's official Playnite definition has ~100 profiles, each launching `retroarch.exe`
 directly. To keep Steam Input, the overlay, and playtime tracking working — this matters on

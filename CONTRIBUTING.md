@@ -5,9 +5,8 @@ Thanks for considering a contribution to this repo.
 ## Before you start
 
 - Check the [Plugins table](README.md#plugins) for the current status of each
-  plugin. `RomM Save Sync` is a scaffold only — its sync logic isn't implemented
-  yet, so that's the area most open to contribution. See the TODOs in
-  [`plugins/PlayniteRommSaveSyncKit`](plugins/PlayniteRommSaveSyncKit).
+  plugin. Save sync with RomM is out of scope — it's handled by the official
+  [RomM Playnite extension](https://github.com/rommapp/playnite-plugin).
 - For anything beyond a small fix, open an issue first to discuss the change
   before writing code — it saves both of us time if the approach needs
   adjusting.
