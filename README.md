@@ -36,17 +36,25 @@ removal in Playnite 11.
 
 ## Development
 
-- Plugins: [uv](https://docs.astral.sh/uv/) + Python.
-  - `uv run tools/build-extension.py` copies every plugin under `plugins/` into `dist/`.
-  - `uv run tools/pack-extensions.py --toolbox <path to Playnite's Toolbox.exe>` packs
-    each `dist/<plugin>` into `dist/pext/<plugin>.pext` (needs `dist/<plugin>` to exist
-    first). Point `--toolbox` at `Toolbox.exe` from any local Playnite install, or set the
-    `PLAYNITE_TOOLBOX` env var instead of passing the flag every time. The release
-    workflow runs this same script — the only difference is where its `Toolbox.exe` comes
-    from (a Playnite version downloaded fresh in CI, vs. whatever's already installed on
-    your machine locally).
-- Docs site: `npm install` then `npm run dev --workspace docs` to preview, or
-  `npm run build --workspace docs` to build straight into `dist/docs/`.
+Requirements: [uv](https://docs.astral.sh/uv/) (plugins tooling), npm (docs site) and
+`make`. Run `make help` to list every target.
+
+| Command                                | What it does                                                            |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| `make build`                           | Copies every plugin under `plugins/` into `dist/`.                      |
+| `make pack TOOLBOX=<path/Toolbox.exe>` | Builds, then packs each `dist/<plugin>` into `dist/pext/<plugin>.pext`. |
+| `make install`                         | Installs the docs site dependencies (`npm install`).                    |
+| `make docs-dev`                        | Previews the docs site locally.                                         |
+| `make docs-build`                      | Builds the docs site into `dist/docs/`.                                 |
+| `make clean`                           | Removes `dist/`.                                                        |
+
+`make pack` needs `Toolbox.exe` from any local Playnite install: pass it as `TOOLBOX=...`,
+or set the `PLAYNITE_TOOLBOX` env var once instead. The release workflow runs the same
+packing script — the only difference is where its `Toolbox.exe` comes from (a Playnite
+version downloaded fresh in CI, vs. whatever's already installed on your machine).
+
+Each target is a thin wrapper around `uv run tools/*.py` or `npm run ... --workspace docs`,
+so you can still run those directly if `make` isn't available (e.g. plain Windows).
 
 Implementation notes and gotchas (e.g. why profiles are synced instead of created, why
 hook logic can't be shared through a helper function) live as comments next to the code
